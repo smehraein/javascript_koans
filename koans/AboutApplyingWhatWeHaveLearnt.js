@@ -63,7 +63,18 @@ describe("About Applying What We Have Learnt", function() {
 
   it("should add all the natural numbers below 1000 that are multiples of 3 or 5 (functional)", function () {
 
-    var sum = FILL_ME_IN;    /* try chaining range() and reduce() */
+    var validMultiple = function(memo, x){
+      if (x % 3 === 0 || x % 5 === 0) {
+        return memo + x;
+      }
+      else {
+        return memo;
+      }
+    }
+
+    /* try chaining range() and reduce() */
+
+    var sum = _.range(1000).reduce(validMultiple, 0);
 
     expect(sum).toBe(233168);
   });
