@@ -89,15 +89,31 @@ describe("About Applying What We Have Learnt", function() {
         }
     }
 
-    expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
+    expect(ingredientCount['mushrooms']).toBe(2);
   });
 
   it("should count the ingredient occurrence (functional)", function () {
     var ingredientCount = { "{ingredient name}": 0 };
 
     /* chain() together map(), flatten() and reduce() */
+    
+    var reducer = function(memo, x){
+      if (memo[x] == undefined) {
+        memo[x] = 1;
+      }
+      else {
+        memo[x] += 1;
+      }
+      return memo;
+    }
 
-    expect(ingredientCount['mushrooms']).toBe(FILL_ME_IN);
+    ingredientCount = _(products).chain()
+                        .map(function(x){return x.ingredients})
+                        .flatten()
+                        .reduce(reducer, ingredientCount)
+                        .value();
+
+    expect(ingredientCount['mushrooms']).toBe(2); //The ingredients are correct, but there's an extra k-v pair at the end...?
   });
 
   /*********************************************************************************/
